@@ -4,6 +4,8 @@ var app = express();
 
 app.use('/', index);
 
+app.use(express.static('server/public'));
+
 
 var server = app.listen(3000, function(){
     var port = server.address().port;
