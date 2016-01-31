@@ -1,5 +1,5 @@
 var express = require('express');
-var index = ('./routes/index');
+var index = require('./routes/index');
 var app = express();
 
 app.use('/', index);
