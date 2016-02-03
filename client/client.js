@@ -16,15 +16,15 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/menu.html',
             controller: 'TaskEntryController'
         })
-        .when('/taskEntry', {
+        .when('/task_entry', {
             templateUrl: 'views/task_entry.html',
             controller: 'TaskEntryController'
         })
-        .when('/selectTasks', {
+        .when('/select_tasks', {
             templateUrl: 'views/select_tasks.html',
             controller: 'TaskEntryController'
         })
-        .when('/viewHistory', {
+        .when('/history', {
             templateUrl: 'views/history.html',
             controller: 'TaskEntryController'
         });
