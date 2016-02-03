@@ -2,13 +2,22 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
-    <title>Done List - What Have I Accomplished Today?</title>
+    <link href="../assets/styles/style.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <title>Done List App</title>
     <script src="../vendor/angular/angular.min.js"></script>
+    <script src="../vendor/angular-route/angular-route.min.js"></script>
     <script src="../assets/scripts/client.min.js"></script>
+    <base href="/">
 </head>
 <body>
     <h1>Done List</h1>
-    <h3>What Have I Accomplished?</h3>
-    <div ng-controller="MainController">{{message}}</div>
+    <h2>What Have I Accomplished?</h2><br><br>
+    <a href="/login"><button>Please Log In</button></a><br><br>
+
+    <div ng-view></div>
+
+    <!--<div ng-controller="MainController">{{message}}</div>-->
+
 </body>
 </html>
