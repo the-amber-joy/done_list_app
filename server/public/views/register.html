@@ -1,19 +1,18 @@
-// from example
 <form action="/register" method="post">
     <div>
         <label>Username:</label>
-        <input type="text" ng-model="data.username">
+        <input type="text" ng-model="data.username" placeholder="needs to be linked">
     </div>
-
+    <br>
     <div>
         <label>Password:</label>
-        <input type="password" ng-model="data.password">
+        <input type="password" ng-model="data.password" placeholder="needs to be linked">
     </div>
-
+<br>
     <div>
         <!--<button ng-click="submitData()">Register and Log In</button>-->
-        <a href="/menu"><button>Register and Log In</button></a>
-        <a href="/login"><button>Already Have an Account?</button></a>
+        <a href="/menu"><button>Register and Log In</button></a><br><br>
+        <a href="/login">Already Have an Account?</a>
     </div>
 </form>
 

@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute']);
 
-//console.log('client hit');
+console.log('client hit');
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -48,3 +48,22 @@ app.controller('TaskEntryController', ['$scope', function ($scope) {
     $scope.taskList = [];
 }]);
 
+//app.controller('TaskEntryController', ['$scope', function ($scope) {
+//    $scope.taskList = [];
+//}]);
+//
+//app.controller('TaskEntryController', ['$scope', function ($scope) {
+//    $scope.taskList = [];
+//}]);
+//
+//app.controller('TaskEntryController', ['$scope', function ($scope) {
+//    $scope.taskList = [];
+//}]);
+//
+//app.controller('TaskEntryController', ['$scope', function ($scope) {
+//    $scope.taskList = [];
+//}]);
+//
+//app.controller('TaskEntryController', ['$scope', function ($scope) {
+//    $scope.taskList = [];
+//}]);

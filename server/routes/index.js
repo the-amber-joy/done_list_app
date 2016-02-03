@@ -5,7 +5,7 @@ var path = require('path');
 
 router.get('/', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/index.html'));
-    //console.log('router hit');
+    console.log('router hit');
 });
 
 router.get('/menu', function(request, response){
@@ -15,7 +15,6 @@ router.get('/menu', function(request, response){
 router.get('/taskEntry', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/task_entry.html'));
 });
-
 
 router.get('/selectTasks', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/select_tasks.html'));

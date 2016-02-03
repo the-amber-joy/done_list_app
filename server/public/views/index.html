@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel='stylesheet' type='text/css'>
+    <link href="../assets/styles/reset.css" rel="stylesheet" type="text/css">
     <link href="../assets/styles/style.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <title>Done List App</title>
@@ -12,13 +13,14 @@
     <base href="/">
 </head>
 <body>
-    <h1>Done List</h1>
-    <h2>What Have I Accomplished?</h2><br><br>
-    <a href="/login"><button>Please Log In</button></a><br><br>
+    <div class="app">
+        <h1>Done List</h1>
+        <h2>What Have I Accomplished?</h2><br><br>
+        <a href="/login"><button>Please Log In</button></a><br><br>
 
-    <div ng-view></div>
+        <div ng-view></div>
 
-    <!--<div ng-controller="MainController">{{message}}</div>-->
-
+        <!--<div ng-controller="MainController">{{message}}</div>-->
+    </div>
 </body>
 </html>

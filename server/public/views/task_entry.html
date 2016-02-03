@@ -1,12 +1,12 @@
 <div>
     <form>
         <div name="taskEntry">
-            What did I accomplish today?<br><textarea name="taskEntryInput" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="One task&#10;A second task&#10;One more here"></textarea>
+            What did I accomplish today?<br><textarea name="taskEntryInput" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="One task&#10;A second task&#10;One more here&#10;It's a list!"></textarea>
         </div>
         <br>
-            list is saved as array to be posted to the database: {{taskList}}
+            Array to be posted to the database: {{taskList}}
     </form>
     <a href="/selectTasks"><button>Select More</button></a>
     <a href="/viewHistory"><button>View History</button></a>
-    <button>Done!</button>
+    <a href="/viewHistory"><button class="done">Done!</button></a>
 </div>
