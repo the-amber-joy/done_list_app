@@ -56,7 +56,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'client/sass',
-                    src: ['*.scss'],
+                    src: ['style.scss'],
                     dest: 'server/public/assets/styles',
                     ext: '.css'
                 }]
