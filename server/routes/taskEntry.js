@@ -15,17 +15,10 @@ router.post('/addTasks', function (request, response) {
             console.log(error);
         }
 
-        client.query("INSERT INTO tasks (column name, column name, column name) VALUES($1, $2, $3)", [data.userid, data.tasks]);
-
-        var query = client.query("SELECT * FROM skills ORDER BY id ASC");
+        var query = client.query("INSERT INTO tasks (column name, column name, column name) VALUES($1, $2, $3)", [taskname, userid]);
 
         query.on('row', function (row) {
             results.push(row);
-        });
-
-        query.on('end', function () {
-            client.end();
-            return response.json(results);
         });
 
     })

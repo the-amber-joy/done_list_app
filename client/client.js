@@ -6,15 +6,15 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $routeProvider
         .when('/register', {
             templateUrl: 'views/register.html',
-            controller: 'TaskEntryController'
+            controller: 'RegisterController'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
-            controller: 'TaskEntryController'
+            controller: 'LoginController'
         })
         .when('/menu', {
             templateUrl: 'views/menu.html',
-            controller: 'TaskEntryController'
+            controller: 'MenuController'
         })
         .when('/task_entry', {
             templateUrl: 'views/task_entry.html',
@@ -22,11 +22,11 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         })
         .when('/select_tasks', {
             templateUrl: 'views/select_tasks.html',
-            controller: 'TaskEntryController'
+            controller: 'SelectTasksController'
         })
         .when('/history', {
             templateUrl: 'views/history.html',
-            controller: 'TaskEntryController'
+            controller: 'HistoryController'
         });
 
     //$routeProvider
@@ -48,22 +48,23 @@ app.controller('TaskEntryController', ['$scope', function ($scope) {
     $scope.taskList = [];
 }]);
 
-//app.controller('TaskEntryController', ['$scope', function ($scope) {
-//    $scope.taskList = [];
-//}]);
-//
-//app.controller('TaskEntryController', ['$scope', function ($scope) {
-//    $scope.taskList = [];
-//}]);
-//
-//app.controller('TaskEntryController', ['$scope', function ($scope) {
-//    $scope.taskList = [];
-//}]);
-//
-//app.controller('TaskEntryController', ['$scope', function ($scope) {
-//    $scope.taskList = [];
-//}]);
-//
-//app.controller('TaskEntryController', ['$scope', function ($scope) {
-//    $scope.taskList = [];
-//}]);
+app.controller('RegisterController', ['$scope', function ($scope) {
+
+}]);
+
+app.controller('LoginController', ['$scope', function ($scope) {
+
+}]);
+
+app.controller('MenuController', ['$scope', function ($scope) {
+
+}]);
+
+app.controller('SelectTasksController', ['$scope', function ($scope) {
+
+}]);
+
+app.controller('HistoryController', ['$scope', function ($scope) {
+
+}])
+
