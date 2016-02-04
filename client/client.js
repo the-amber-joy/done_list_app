@@ -1,15 +1,27 @@
+///////////////////////////////////////////////////////////////////////////////////
+//                               ANGULAR!
+///////////////////////////////////////////////////////////////////////////////////
 var app = angular.module('myApp', ['ngRoute']);
 
-console.log('client hit');
-
+///////////////////////////////////////////////////////////////////////////////////
+//                               ROUTES
+///////////////////////////////////////////////////////////////////////////////////
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
+        .when('/', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
+        })
         .when('/register', {
             templateUrl: 'views/register.html',
             controller: 'RegisterController'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
+            controller: 'LoginController'
+        })
+        .when('/try_again', {
+            templateUrl: 'views/try_again.html',
             controller: 'LoginController'
         })
         .when('/menu', {
@@ -27,6 +39,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/history', {
             templateUrl: 'views/history.html',
             controller: 'HistoryController'
+        })
+        .otherwise({
+            redirectTo: '/'
         });
 
     //$routeProvider
@@ -44,27 +59,81 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
-app.controller('TaskEntryController', ['$scope', function ($scope) {
-    $scope.taskList = [];
+
+///////////////////////////////////////////////////////////////////////////////////
+//                               CONTROLLERS
+///////////////////////////////////////////////////////////////////////////////////
+app.controller('MainController', ['$scope', 'userData', function($scope, userData){
+    $scope.notSignedIn = true;
+    $scope.signedIn = false;
+
+    changeNavLinks = function(){
+        if(userData.currentUser.username !== ''){
+            $scope.notSignedIn = false;
+            $scope.signedIn = true;
+        }else{
+            $scope.notSignedIn = true;
+            $scope.signedIn = false;
+        }
+    };
 }]);
 
-app.controller('RegisterController', ['$scope', function ($scope) {
+app.controller('LoginController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, $location, userData){
+    $scope.data = {};
 
+    $scope.submitData = function(){
+        $http.post('/', $scope.data).then(function(response){
+            userData.setUser($scope.data.username);
+            console.log('$scope.data.username:', $scope.data.username);
+            $location.path(response.data);
+        });
+    };
 }]);
 
-app.controller('LoginController', ['$scope', function ($scope) {
-
+app.controller('RegisterController', ['$scope', '$http', function ($scope, $http) {
+    //this is where I'll send new usernames/passwords to postgres
 }]);
+
 
 app.controller('MenuController', ['$scope', function ($scope) {
-
+    $http.get('/getUser').then(function(response){
+        console.log(response);
+        $scope.user = response;
+    })
 }]);
 
-app.controller('SelectTasksController', ['$scope', function ($scope) {
+app.controller('TaskEntryController', ['$scope', '$http', function ($scope, $http) {
+    $scope.taskList = [];
+    //this will need to be posted back to the database, each index in array will be a new row in 'tasks' table
+}]);
 
+app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $http) {
+    //this is where i will retrieve all tasks associtaed with currrentUser to populate checklist
 }]);
 
 app.controller('HistoryController', ['$scope', function ($scope) {
+    //this is where all tasks for the past week will be retrieved and displayed
+}]);
 
-}])
 
+
+///////////////////////////////////////////////////////////////////////////////////
+//                               FACTORIES
+///////////////////////////////////////////////////////////////////////////////////
+app.factory('userData', ['$http', '$rootScope', '$timeout', function($http, $rootScope, $timeout){
+
+    var currentUser = {
+        username: ''
+    };
+
+    var setUser = function(username){
+        currentUser.username = username;
+        changeNavLinks();
+    };
+
+    return {
+        currentUser: currentUser,
+        setUser: setUser
+    };
+
+}]);

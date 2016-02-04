@@ -74,6 +74,9 @@ h2 {
   font-style: italic;
   color: #0073e5; }
 
+input {
+  color: #000000; }
+
 textarea {
   width: 200px;
   height: 150px;
