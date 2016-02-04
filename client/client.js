@@ -95,7 +95,7 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
 }]);
 
 app.controller('RegisterController', ['$scope', '$http', function ($scope, $http) {
-    //this is where I send new usernames/passwords to postgres
+    //this is where I will send new usernames/passwords to postgres
     $scope.data = {};
 
     $scope.submitNewData = function(){

@@ -4,6 +4,8 @@ var passport = require('passport');
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var index = require('./routes/index');
+var register = require('./routes/register');
+var taskEntry = require('./routes/taskEntry');
 var localStrategy = require('passport-local').Strategy;
 var app = express();
 
@@ -34,6 +36,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
+app.use('/register', register);
+app.use('/taskEntry', taskEntry);
 
 passport.use('local', new localStrategy({
     passReqToCallback: true,
