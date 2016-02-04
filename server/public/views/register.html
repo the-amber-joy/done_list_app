@@ -1,18 +1,22 @@
 <form action="/register" method="post">
     <div>
-        <label>Username:</label>
-        <input type="text" ng-model="data.username" placeholder="needs to be linked">
+        <label>Select a Username:</label>
+        <input type="text" ng-model="data.username">
     </div>
     <br>
     <div>
         <label>Password:</label>
-        <input type="password" ng-model="data.password" placeholder="needs to be linked">
+        <input type="password" ng-model="data.password">
     </div>
 <br>
     <div>
         <!--<button ng-click="submitData()">Register and Log In</button>-->
-        <a href="/menu"><button>Register and Log In</button></a><br><br>
-        <a href="/login">Already Have an Account?</a>
+
+        <div>
+            <input type="submit" ng-click="submitNewData()" value="Register and Log In">
+            <br><br>
+            <a href="/login">Already Have an Account?</a>
+        </div>
     </div>
 </form>
 

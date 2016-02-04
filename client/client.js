@@ -63,7 +63,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 ///////////////////////////////////////////////////////////////////////////////////
 //                               CONTROLLERS
 ///////////////////////////////////////////////////////////////////////////////////
-app.controller('MainController', ['$scope', 'userData', function($scope, userData){
+app.controller('MainController', ['$scope', 'userData', '$http', function($scope, userData, $http){
     $scope.notSignedIn = true;
     $scope.signedIn = false;
 
@@ -76,6 +76,10 @@ app.controller('MainController', ['$scope', 'userData', function($scope, userDat
             $scope.signedIn = false;
         }
     };
+
+    $scope.logout = function(){
+        $http.get('/logout');
+    }
 }]);
 
 app.controller('LoginController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, $location, userData){
@@ -91,11 +95,21 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
 }]);
 
 app.controller('RegisterController', ['$scope', '$http', function ($scope, $http) {
-    //this is where I'll send new usernames/passwords to postgres
+    //this is where I send new usernames/passwords to postgres
+    $scope.data = {};
+
+    $scope.submitNewData = function(){
+        $http.post('/', $scope.data).then(function(response){
+            userData.setUser($scope.data.username);
+            console.log('$scope.data.username:', $scope.data.username);
+            $location.path(response.data);
+        });
+    };
+
 }]);
 
 
-app.controller('MenuController', ['$scope', function ($scope) {
+app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
     $http.get('/getUser').then(function(response){
         console.log(response);
         $scope.user = response;

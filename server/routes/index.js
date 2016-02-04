@@ -29,6 +29,20 @@ router.get('/', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
+router.post('/', passport.authenticate('local', {
+    successRedirect: '/menu',
+    failureRedirect: '/try_again'
+}));
+
+//redirect non-authenticated users to login page
+router.get('/*', function (request, response, next){
+    if(request.isAuthenticated()){
+        next();
+    } else {
+        response.redirect('/login');
+    }
+});
+
 //route for successful login
 router.get('/menu', function(request, response){
     console.log('req.user on success route', request.user);
@@ -42,23 +56,17 @@ router.get('/try_again', function(request, response){
 
 router.get('/getUser', function(request, response){
     console.log('Huzzah, a user!', request.user);
-    console.log('Authorized:', request.isAuthenticated());
+    console.log('Is user logged in?:', request.isAuthenticated());
     response.send(request.user);
 });
 
-router.post('/', passport.authenticate('local', {
-    successRedirect: '/menu',
-    failureRedirect: '/try_again'
-}));
+router.get('/logout', function(request, response){
+    request.logout();
+    response.redirect('/');
+    console.log('is user still authenticated?:', request.isAuthenticated());
+});
 
 
 
-//router.get('/*', function (request, response, next){
-//    if(request.isAuthenticated()){
-//        next();
-//    } else {
-//        response.redirect('/login');
-//    }
-//});
 
 module.exports = router;
