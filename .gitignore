@@ -1,4 +1,4 @@
 .idea
 node_modules
 .sass-cache
-/client/sass/
+client/sass/
