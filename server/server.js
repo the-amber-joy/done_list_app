@@ -27,7 +27,7 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 60000,
+        maxAge: 300000,
         secure: false
     }
 }));
@@ -51,7 +51,6 @@ passport.use('local', new localStrategy({
 
         query.on('row', function(row){
             user = row;
-            //console.log('User object identified on server:', user);
         });
 
         query.on('end', function(){
@@ -80,7 +79,7 @@ passport.deserializeUser(function(id, done){ //CREATES the req.user -- it grabs 
 
         query.on('row', function(row){
             user = row;
-            console.log('req.user object identified on server', user);
+            //console.log('req.user object identified (server) as:', user);
             done(null, user);
         });
     });

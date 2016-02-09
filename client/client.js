@@ -40,6 +40,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/history.html',
             controller: 'HistoryController'
         })
+        .when('/logout', {
+            redirectTo: 'views/login.html' //WHY IS THIS NOT REDIRECTING ON LOGOUT
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -67,6 +70,10 @@ app.controller('MainController', ['$scope', 'userData', '$http', function($scope
     $scope.notSignedIn = true;
     $scope.signedIn = false;
 
+    $scope.logout = function(){
+        $http.get('/logout');
+    };
+
     changeNavLinks = function(){
         if(userData.currentUser.username !== ''){
             $scope.notSignedIn = false;
@@ -76,10 +83,6 @@ app.controller('MainController', ['$scope', 'userData', '$http', function($scope
             $scope.signedIn = false;
         }
     };
-
-    $scope.logout = function(){
-        $http.get('/logout');
-    }
 }]);
 
 app.controller('LoginController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, $location, userData){
@@ -88,20 +91,22 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
     $scope.submitData = function(){
         $http.post('/', $scope.data).then(function(response){
             userData.setUser($scope.data.username);
-            console.log('$scope.data.username:', $scope.data.username);
+            console.log('$scope.data on client.js:', $scope.data);
             $location.path(response.data);
         });
     };
 }]);
 
-app.controller('RegisterController', ['$scope', '$http', function ($scope, $http) {
-    //this is where I will send new usernames/passwords to postgres
+
+
+app.controller('RegisterController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    //this is where I send new usernames/passwords to postgres
     $scope.data = {};
 
     $scope.submitNewData = function(){
         $http.post('/', $scope.data).then(function(response){
             userData.setUser($scope.data.username);
-            console.log('$scope.data.username:', $scope.data.username);
+            console.log('$scope.data.username is logged as:', $scope.data.username);
             $location.path(response.data);
         });
     };
@@ -111,18 +116,32 @@ app.controller('RegisterController', ['$scope', '$http', function ($scope, $http
 
 app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
     $http.get('/getUser').then(function(response){
-        console.log(response);
+        console.log('MenuController /getUser response', response);
         $scope.user = response;
     })
 }]);
 
-app.controller('TaskEntryController', ['$scope', '$http', function ($scope, $http) {
+//entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
+app.controller('TaskEntryController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, userData) {
+    $scope.user = {};
+    $http.get('/getUser').then(function(response){
+        console.log('TaskEntry /getUser response', response);
+        $scope.user = response;
+    });
+
     $scope.taskList = [];
-    //this will need to be posted back to the database, each index in array will be a new row in 'tasks' table
+
+    $scope.submitTasks = function(){
+        $scope.sendData = {taskList: JSON.stringify($scope.taskList)};
+        $http.post('/', JSON.stringify({taskList: $scope.taskList})).then(function(response){
+            console.log('taskList array entered:', response.config.data);
+            console.log('$scope.user.data is:', $scope.user.data);
+        });
+    };
 }]);
 
 app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $http) {
-    //this is where i will retrieve all tasks associtaed with currrentUser to populate checklist
+    //this is where i will retrieve all tasks associated with currentUser to populate checklist
 }]);
 
 app.controller('HistoryController', ['$scope', function ($scope) {
@@ -134,7 +153,8 @@ app.controller('HistoryController', ['$scope', function ($scope) {
 ///////////////////////////////////////////////////////////////////////////////////
 //                               FACTORIES
 ///////////////////////////////////////////////////////////////////////////////////
-app.factory('userData', ['$http', '$rootScope', '$timeout', function($http, $rootScope, $timeout){
+
+app.factory('userData', ['$http', '$rootScope', '$timeout', function($http){
 
     var currentUser = {
         username: ''

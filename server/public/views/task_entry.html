@@ -1,10 +1,10 @@
 <div>
     <form action="/taskEntry" method="post">
         <div name="taskEntry">
-            What did I accomplish today?<br><textarea name="taskEntryInput" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="List items here&#10;A second task&#10;One more here"></textarea>
+            What did I accomplish today?<br><textarea name="taskList" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="List items here&#10;A second task&#10;One more here"></textarea>
         </div>
         <br>
-            This is the array to be posted to the database (remove before completing): {{taskList}}
+            This is the taskList array(REMOVE BEFORE DEPLOYMENT): {{taskList}}
         <input type="submit" ng-click="submitTasks()" value="Done!" class="done">
         <!--<a href="/history"><button class="done">Done!</button></a>-->
     </form>
