@@ -14,7 +14,7 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/do
 router.post('/', function(request, response) {
 
     console.log('request.user is:', request.user);
-    console.log('request.body.taskList returns the following:', request.body.taskList);
+    console.log('request.body.taskList returns this (as a STRING with line breaks!):', request.body.taskList);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -25,10 +25,6 @@ router.post('/', function(request, response) {
             console.log(err);
             return response.status(500).json({ success: false, data: err});
         }
-
-        // Grab data from http request
-        var taskList = request.body.tasklist;
-        var userId = request.user.id;
 
 
             // LOOPING SQL Query > Insert Data

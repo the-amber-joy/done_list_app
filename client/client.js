@@ -40,9 +40,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/history.html',
             controller: 'HistoryController'
         })
-        .when('/logout', {
-            redirectTo: 'views/login.html' //WHY IS THIS NOT REDIRECTING ON LOGOUT
-        })
+        //.when('/logout', {
+        //    redirectTo: 'views/login.html'
+        //})
         .otherwise({
             redirectTo: '/'
         });
@@ -66,19 +66,21 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 ///////////////////////////////////////////////////////////////////////////////////
 //                               CONTROLLERS
 ///////////////////////////////////////////////////////////////////////////////////
-app.controller('MainController', ['$scope', 'userData', '$http', function($scope, userData, $http){
+app.controller('MainController', ['$scope', '$location', 'userData', '$http', function($scope, $location, userData, $http){
     $scope.notSignedIn = true;
     $scope.signedIn = false;
 
-    $scope.logout = function(){
-        $http.get('/logout');
-    };
+
+    var logoutUser = function(){
+        $http.get('/logoutUser').then(function (response) {
+            console.log('logout response to client:', response);
+        })};
 
     changeNavLinks = function(){
-        if(userData.currentUser.username !== ''){
+        if (userData.currentUser.username !== '') {
             $scope.notSignedIn = false;
             $scope.signedIn = true;
-        }else{
+        } else {
             $scope.notSignedIn = true;
             $scope.signedIn = false;
         }
@@ -118,7 +120,7 @@ app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
     $http.get('/getUser').then(function(response){
         console.log('MenuController /getUser response', response);
         $scope.user = response;
-    })
+    });
 }]);
 
 //entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
@@ -128,7 +130,6 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', 'userData
         console.log('TaskEntry /getUser response', response);
         $scope.user = response;
     });
-
 
     $scope.submitTasks = function(){
         $scope.sendData = {taskList: JSON.stringify($scope.taskList)};
@@ -168,5 +169,4 @@ app.factory('userData', ['$http', '$rootScope', '$timeout', function($http){
         currentUser: currentUser,
         setUser: setUser
     };
-
 }]);

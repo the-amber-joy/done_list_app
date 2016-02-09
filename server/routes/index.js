@@ -30,7 +30,7 @@ router.get('/try_again', function(request, response){
 });
 
 router.get('/getUser', function(request, response){
-    console.log('logged-in user:', request.user);
+    //console.log('logged-in user:', request.user);
     console.log('Is user authenticated?:', request.isAuthenticated());
     response.send(request.user);
 });
@@ -40,11 +40,11 @@ router.post('/', passport.authenticate('local', {
     failureRedirect: '/try_again'
 }));
 
-router.get('/logout', function(request, response){
+router.get('/logoutUser', function(request, response){
     request.logout();
     response.send('200');
     //HAVE CLIENT REDIRECT AT THIS POINT??? Why is it not redirecting?
-    response.redirect('/login');
+    response.redirect('login');
     console.log('is user still authenticated?:', request.isAuthenticated());
 });
 
