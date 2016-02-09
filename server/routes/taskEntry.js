@@ -13,25 +13,27 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/do
 
 router.post('/', function(request, response) {
 
-    //var tasks = [];
-
-    console.log('request.body.taskList returns the following data:', request.body.taskList);
+    console.log('request.user is:', request.user);
+    console.log('request.body.taskList returns the following:', request.body.taskList);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
+
         if(err) {
             done();
             console.log(err);
             return response.status(500).json({ success: false, data: err});
         }
 
-
         // Grab data from http request
-        var data = request.body.tasklist;
+        var taskList = request.body.tasklist;
+        var userId = request.user.id;
+
+
             // LOOPING SQL Query > Insert Data
-        //for (i = 0; i < request.body.length; i++){
-        //    client.query("INSERT INTO tasks (task_name, user_id) VALUES ($1, $2); INSERT INTO task_dates (date, task_id) VALUES ('today', (SELECT id FROM tasks ORDER BY id DESC LIMIT 1));", [data[i], request.data.id]);
+        //for (i = 0; i < taskList.length; i++){
+        //    client.query("INSERT INTO tasks (task_name, user_id) VALUES ($1, $2); INSERT INTO task_dates (date, task_id) VALUES ('today', (SELECT id FROM tasks ORDER BY id DESC LIMIT 1));", [taskList[i], userId]);
         //}
     });
 });

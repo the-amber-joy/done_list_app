@@ -129,13 +129,12 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', 'userData
         $scope.user = response;
     });
 
-    $scope.taskList = [];
 
     $scope.submitTasks = function(){
         $scope.sendData = {taskList: JSON.stringify($scope.taskList)};
         $http.post('/', JSON.stringify({taskList: $scope.taskList})).then(function(response){
             console.log('taskList array entered:', response.config.data);
-            console.log('$scope.user.data is:', $scope.user.data);
+            //console.log('$scope.user.data is:', $scope.user.data);
         });
     };
 }]);
