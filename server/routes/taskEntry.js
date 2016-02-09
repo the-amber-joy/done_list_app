@@ -13,9 +13,9 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/do
 
 router.post('/', function(request, response) {
 
-    //console.log('request.user is:', request.user);
-    //console.log('full request returns:', request);
+    // the object key being returned here ("stuff") is coming from task_entry.html, textarea name = stuff
     console.log('request.body returns this:', request.body);
+
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {

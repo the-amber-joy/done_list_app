@@ -130,6 +130,7 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', function 
         $scope.user = response;
     });
 
+
     $scope.submitTasks = function(){
         function toObject(arr) {
             var newObj = {};
@@ -138,13 +139,21 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', function 
             }
             return newObj;
         }
+
         var taskObject = toObject($scope.taskList);
-        $http.post('/', JSON.stringify({stuff: $scope.taskList})).then(function(response){
+
+        $http.post('/', taskObject).then(function(response){
             console.log('$scope.taskList is:', $scope.taskList);
             console.log('response.config.data returns this:', response.config.data);
             console.log('var taskObject looks like this:', taskObject);
-            //console.log('$scope.user.data is:', $scope.user.data);
         });
+
+
+        //$http.post('/', JSON.stringify({stuff:{stuff: $scope.taskList}})).then(function(response){
+        //    console.log('$scope.taskList is:', $scope.taskList);
+        //    console.log('response.config.data returns this:', response.config.data);
+        //    console.log('var taskObject looks like this:', taskObject);
+        //});
     };
 
 }]);
