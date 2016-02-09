@@ -40,11 +40,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/history.html',
             controller: 'HistoryController'
         })
-        //.when('/logout', {
-        //    redirectTo: 'views/login.html'
-        //})
-        .otherwise({
-            redirectTo: '/'
+        .when('/*', {
+            templateUrl: 'views/login.html'
         });
 
     //$routeProvider
@@ -124,38 +121,22 @@ app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
-app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http) {
-    $scope.user = {};
-    $http.get('/getUser').then(function(response){
-        $scope.user = response;
-    });
+app.controller('TaskEntryController', ['$scope', '$http', function ($scope, $http) {
+    //$scope.user = {};
+    //$http.get('/getUser').then(function(response){
+    //    $scope.user = response;
+    //});
 
+    $scope.submitTasks = function() {
 
-    $scope.submitTasks = function(){
-        function toObject(arr) {
-            var newObj = {};
-            for (var i = 0; i < arr.length; i++) {
-                newObj[i] = arr[i]
-            }
-            return newObj;
-        }
+        var taskObject = {tasks: $scope.taskList}
 
-        var taskObject = toObject($scope.taskList);
-
-        $http.post('/', taskObject).then(function(response){
+        $http.post('/taskEntry', taskObject).then(function (response) {
             console.log('$scope.taskList is:', $scope.taskList);
             console.log('response.config.data returns this:', response.config.data);
             console.log('var taskObject looks like this:', taskObject);
         });
-
-
-        //$http.post('/', JSON.stringify({stuff:{stuff: $scope.taskList}})).then(function(response){
-        //    console.log('$scope.taskList is:', $scope.taskList);
-        //    console.log('response.config.data returns this:', response.config.data);
-        //    console.log('var taskObject looks like this:', taskObject);
-        //});
     };
-
 }]);
 
 app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $http) {
