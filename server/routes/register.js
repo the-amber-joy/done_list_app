@@ -23,12 +23,11 @@ router.post('/', function(request, response){
         });
 
         query.on('end', function () {
-            response.sendFile(path.join(__dirname, '../public/views/menu.html'));
+            response.sendFile(path.join(__dirname, '../public/views/login.html'));
             client.end();
         })
-    })
+    });
 });
-
 
 
 module.exports = router;

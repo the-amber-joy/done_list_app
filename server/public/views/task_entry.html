@@ -1,11 +1,12 @@
-</div>
+<form ng-submit="submitTasks()">
     <div name="taskEntry">
         <p>What did I accomplish today?</p><br><textarea name="stuff" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="List items here&#10;A second task&#10;One more here"></textarea>
     </div>
 
     <br>
         This is the taskList array(REMOVE BEFORE DEPLOYMENT): {{taskList}}
-    <input type="submit" ng-click="submitTasks()" value="Done!" class="done">
-</div>
+    <input type="submit" value="Done!" class="done">
+</form>
+<br>
 <a href="/select_tasks"><button>Select More</button></a>
 <a href="/history"><button>View History</button></a>

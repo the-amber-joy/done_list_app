@@ -44,18 +44,6 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/login.html'
         });
 
-    //$routeProvider
-    //    .when('login', {
-    //        templateUrl: 'login.html',
-    //        controller: 'LoginController',
-    //        resolve: {
-    //            //... optional?
-    //        }
-    //    })
-    //    .otherwise({
-    //        redirectTo: 'newUser' //this route/module needs to be defined
-    //    });
-
     $locationProvider.html5Mode(true);
 }]);
 
@@ -68,10 +56,10 @@ app.controller('MainController', ['$scope', '$location', 'userData', '$http', fu
     $scope.signedIn = false;
 
 
-    var logoutUser = function(){
-        $http.get('/logoutUser').then(function (response) {
-            console.log('logout response to client:', response);
-        })};
+    //var logoutUser = function(){
+    //    $http.get('/logoutUser').then(function (response) {
+    //        console.log('logout response to client:', response);
+    //    })};
 
     changeNavLinks = function(){
         if (userData.currentUser.username !== '') {
@@ -82,6 +70,7 @@ app.controller('MainController', ['$scope', '$location', 'userData', '$http', fu
             $scope.signedIn = false;
         }
     };
+
 }]);
 
 app.controller('LoginController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, $location, userData){
@@ -90,7 +79,6 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
     $scope.submitData = function(){
         $http.post('/', $scope.data).then(function(response){
             userData.setUser($scope.data.username);
-            //console.log('$scope.data on client.js:', $scope.data);
             $location.path(response.data);
         });
     };
@@ -98,14 +86,15 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
 
 
 
-app.controller('RegisterController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-    //this is where I send new usernames/passwords to postgres
+app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData', function ($scope, $http, $location, userData){
     $scope.data = {};
 
     $scope.submitNewData = function(){
-        $http.post('/', $scope.data).then(function(response){
-            userData.setUser($scope.data.username);
-            console.log('$scope.data.username is logged as:', $scope.data.username);
+        $http.post('/register', $scope.data).then(function(request, response){
+            //userData.setUser($scope.data.username);
+            //userData.setPassword($scope.data.password);
+            //console.log('$scope.data.username recorded as:', $scope.data.username);
+            //console.log('$scope.data.password recorded as:', $scope.data.password);
             $location.path(response.data);
         });
     };
@@ -121,20 +110,13 @@ app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
-app.controller('TaskEntryController', ['$scope', '$http', function ($scope, $http) {
-    //$scope.user = {};
-    //$http.get('/getUser').then(function(response){
-    //    $scope.user = response;
-    //});
+app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     $scope.submitTasks = function() {
-
         var taskObject = {tasks: $scope.taskList}
-
         $http.post('/taskEntry', taskObject).then(function (response) {
-            console.log('$scope.taskList is:', $scope.taskList);
-            console.log('response.config.data returns this:', response.config.data);
             console.log('var taskObject looks like this:', taskObject);
+            window.location = ('/history');
         });
     };
 }]);
@@ -164,8 +146,13 @@ app.factory('userData', ['$http', '$rootScope', '$timeout', function($http){
         changeNavLinks();
     };
 
+    var setPassword = function(password){
+        currentUser.password = password;
+    };
+
     return {
         currentUser: currentUser,
-        setUser: setUser
+        setUser: setUser,
+        setPassword: setPassword
     };
 }]);
