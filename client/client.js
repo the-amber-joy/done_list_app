@@ -91,11 +91,13 @@ app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData
 
     $scope.submitNewData = function(){
         $http.post('/register', $scope.data).then(function(request, response){
+            console.log(request.config.data.username);
+            console.log(response);
             //userData.setUser($scope.data.username);
             //userData.setPassword($scope.data.password);
             //console.log('$scope.data.username recorded as:', $scope.data.username);
             //console.log('$scope.data.password recorded as:', $scope.data.password);
-            $location.path(response.data);
+            $location.path(response);
         });
     };
 

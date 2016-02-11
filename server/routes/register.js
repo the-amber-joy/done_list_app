@@ -14,7 +14,8 @@ router.post('/', function(request, response){
             console.log(error);
         }
 
-        console.log('user.username:', user.username, 'user.password:', user.password);
+        console.log('New Username:', user.username);
+        console.log('New Password:', user.password);
         var query = client.query('INSERT INTO users (username, password) VALUES ($1, $2)', [user.username, user.password]);
 
         query.on('error', function(error){
@@ -23,7 +24,7 @@ router.post('/', function(request, response){
         });
 
         query.on('end', function () {
-            response.sendFile(path.join(__dirname, '../public/views/login.html'));
+            response.redirect('/login');
             client.end();
         })
     });
