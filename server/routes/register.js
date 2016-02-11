@@ -14,9 +14,7 @@ router.post('/', function(request, response){
             console.log(error);
         }
 
-        console.log('New Username:', user.username);
-        console.log('New Password:', user.password);
-        var query = client.query('INSERT INTO users (username, password) VALUES ($1, $2)', [user.username, user.password]);
+        var query = client.query('INSERT INTO users (username, password, firstname, lastname) VALUES ($1, $2, $3, $4)', [user.username, user.password, user.firstname, user.lastname]);
 
         query.on('error', function(error){
             console.log(error);
@@ -24,10 +22,10 @@ router.post('/', function(request, response){
         });
 
         query.on('end', function () {
-            response.redirect('/login');
             client.end();
-        })
+        });
     });
+
 });
 
 

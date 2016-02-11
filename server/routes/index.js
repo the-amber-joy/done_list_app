@@ -19,6 +19,10 @@ router.get('/*', function (request, response, next){
     }
 });
 
+router.get('/thankyou', function(request, response){
+    response.send('thankyou');
+});
+
 //route for successful login
 router.get('/menu', function(request, response){
     response.send('menu');
@@ -34,6 +38,7 @@ router.get('/getUser', function(request, response){
     console.log('Is user authenticated?:', request.isAuthenticated());
     response.send(request.user);
 });
+
 
 router.post('/', passport.authenticate('local', {
     successRedirect: '/menu',

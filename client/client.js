@@ -16,6 +16,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/register.html',
             controller: 'RegisterController'
         })
+        .when('/thankyou', {
+            templateUrl: 'views/thankyou.html',
+            controller: 'LoginController'
+        })
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginController'
@@ -89,17 +93,18 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
 app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData', function ($scope, $http, $location, userData){
     $scope.data = {};
 
+    $scope.thankyou = false;
+
+    $scope.showThankyou = function(){
+      $scope.thankyou = true;
+    };
+
     $scope.submitNewData = function(){
         $http.post('/register', $scope.data).then(function(request, response){
-            console.log(request.config.data.username);
-            console.log(response);
-            //userData.setUser($scope.data.username);
-            //userData.setPassword($scope.data.password);
-            //console.log('$scope.data.username recorded as:', $scope.data.username);
-            //console.log('$scope.data.password recorded as:', $scope.data.password);
-            $location.path(response);
+            console.log(request.config.data.username + 'registered');
         });
     };
+
 
 }]);
 

@@ -1,9 +1,44 @@
 <h3>(All tasks completed this week will be displayed here)</h3>
 
 <div class="history">
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day1tasks">{{task}}</li>
+        </ul>
+    </div>
 
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day2tasks">{{task}}</li>
+        </ul>
+    </div>
+
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day3tasks">{{task}}</li>
+        </ul>
+    </div>
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day4tasks">{{task}}</li>
+        </ul>
+    </div>
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day5tasks">{{task}}</li>
+        </ul>
+    </div>
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day6tasks">{{task}}</li>
+        </ul>
+    </div>
+    <div class="col-md-1">
+        <ul>
+            <li ng-repeat="task in day7tasks">{{task}}</li>
+        </ul>
+    </div>
 </div>
-
 
 <a href="/menu"><button>Main Menu</button></a><br><br>
 <a href="/task_entry"><button>Task Entry</button></a>
