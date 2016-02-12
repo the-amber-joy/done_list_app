@@ -24,6 +24,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/login.html',
             controller: 'LoginController'
         })
+        .when('/logout', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
+        })
         .when('/try_again', {
             templateUrl: 'views/try_again.html',
             controller: 'LoginController'
@@ -60,10 +64,10 @@ app.controller('MainController', ['$scope', '$location', 'userData', '$http', fu
     $scope.signedIn = false;
 
 
-    //var logoutUser = function(){
-    //    $http.get('/logoutUser').then(function (response) {
-    //        console.log('logout response to client:', response);
-    //    })};
+    $scope.logoutUser = function(){
+        $http.get('/logout').success(function (response) {
+            $location.path('login');
+        })};
 
     changeNavLinks = function(){
         if (userData.currentUser.username !== '') {
@@ -108,7 +112,6 @@ app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData
 
 }]);
 
-
 app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
     $http.get('/getUser').then(function(response){
         //console.log('MenuController /getUser response', response);
@@ -117,13 +120,14 @@ app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
-app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http) {
 
     $scope.submitTasks = function() {
         var taskObject = {tasks: $scope.taskList}
-        $http.post('/taskEntry', taskObject).then(function (response) {
-            console.log('var taskObject looks like this:', taskObject);
-            window.location = ('/history');
+        $http.post('/taskEntry', taskObject).then(function () {
+            //console.log('var taskObject looks like this:', taskObject);
+            //window.location = ('/history');
+            $location.path('/history');
         });
     };
 }]);
@@ -132,8 +136,12 @@ app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $h
     //this is where i will retrieve all tasks associated with currentUser to populate checklist
 }]);
 
-app.controller('HistoryController', ['$scope', function ($scope) {
-    //this is where all tasks for the past week will be retrieved and displayed
+app.controller('HistoryController', ['$http', '$scope', function ($http, $scope) {
+    $scope.tasks = [];
+    $http.get('/history').then(function(response){
+        $scope.tasks = response.data;
+        console.log('Tasks', $scope.tasks);
+    });
 }]);
 
 
@@ -142,7 +150,7 @@ app.controller('HistoryController', ['$scope', function ($scope) {
 //                               FACTORIES
 ///////////////////////////////////////////////////////////////////////////////////
 
-app.factory('userData', ['$http', '$rootScope', '$timeout', function($http){
+app.factory('userData', function(){
 
     var currentUser = {
         username: ''
@@ -162,4 +170,4 @@ app.factory('userData', ['$http', '$rootScope', '$timeout', function($http){
         setUser: setUser,
         setPassword: setPassword
     };
-}]);
+});

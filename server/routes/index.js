@@ -40,18 +40,24 @@ router.get('/getUser', function(request, response){
 });
 
 
+router.get('/logout', function(request, response) {
+    request.logout();
+    console.log('is user still authenticated?:', request.isAuthenticated());
+    response.status(200).json({status: 'Bye!'});
+});
+
+//router.get('/logoutUser', function(request, response){
+//    request.logout();
+//    response.send('200');
+//    //HAVE CLIENT REDIRECT AT THIS POINT??? Why is it not redirecting?
+//    console.log('is user still authenticated?:', request.isAuthenticated());
+//    response.send('login');
+//});
+
 router.post('/', passport.authenticate('local', {
     successRedirect: '/menu',
     failureRedirect: '/try_again'
 }));
-
-router.get('/logoutUser', function(request, response){
-    request.logout();
-    response.send('200');
-    //HAVE CLIENT REDIRECT AT THIS POINT??? Why is it not redirecting?
-    response.redirect('login');
-    console.log('is user still authenticated?:', request.isAuthenticated());
-});
 
 
 
