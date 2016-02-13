@@ -5,7 +5,7 @@ var pg = require('pg');
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
-router.post('/history', function(request, response) {
+router.post('/', function(request, response) {
     var tasks = request.body.tasks;
     var userId = request.user.id;
     pg.connect(connectionString, function(err, client, done) {
