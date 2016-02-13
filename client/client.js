@@ -48,6 +48,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             templateUrl: 'views/history.html',
             controller: 'HistoryController'
         })
+        .when('/ancient_history', {
+            templateUrl: 'views/ancient_history.html',
+            controller: 'AncientHistoryController'
+        })
         .when('/*', {
             templateUrl: 'views/login.html'
         });
@@ -132,9 +136,9 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', function 
     };
 }]);
 
-app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $http) {
-    //this is where i will retrieve all tasks associated with currentUser to populate checklist
-}]);
+//app.controller('SelectTasksController', ['$scope', '$http', function ($scope, $http) {
+//    //this is where i will retrieve all tasks associated with currentUser to populate checklist
+//}]);
 
 app.controller('HistoryController', ['$http', '$scope', function ($http, $scope) {
     $scope.tasks = [];
@@ -142,6 +146,18 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
         $scope.tasks = response.data;
         console.log('Tasks', $scope.tasks);
     });
+}]);
+
+app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
+    $scope.oldTasks = [];
+    $http.get('/ancient_history').then(function(response){
+        $scope.oldTasks = response.data;
+        console.log('Old Tasks', $scope.oldTasks);
+    });
+
+    //$scope.getOldDates = function($scope.startDate){
+    //
+    //}
 }]);
 
 

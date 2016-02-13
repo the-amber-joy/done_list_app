@@ -1,0 +1,20 @@
+<h3>Select the week you'd like to view</h3>
+
+<form ng-submit="getOldDates()">
+    <label for="startDate">Week Starting:</label>
+    <input type="date" id="startDate" ng-model="startDate"/>
+    <input type = "submit" value="Go">
+</form>
+
+
+
+<ul ng-repeat="task in oldTasks">
+    <li>On {{task.date | date}} - {{task.task_name}}</li>
+</ul>
+
+
+<div class="navigation">
+    <a href="/menu"><button>Main Menu</button></a><br><br>
+    <a href="/task_entry"><button>Task Entry</button></a>
+    <input type="submit" ng-click="logoutUser()" value="Log Out">
+</div>

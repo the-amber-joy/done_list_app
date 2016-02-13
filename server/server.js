@@ -8,6 +8,7 @@ var register = require('./routes/register');
 var logout = require('./routes/logout');
 var taskEntry = require('./routes/taskEntry');
 var history = require('./routes/history');
+var ancient_history = require('./routes/ancient_history');
 var users = require('./routes/users');
 
 var app = express();
@@ -15,7 +16,6 @@ var app = express();
 app.use(express.static('server/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 //                       PASSPORT THINGS                      //
@@ -44,7 +44,7 @@ app.use('/users', users);
 app.use('/register', register);
 app.use('/taskEntry', taskEntry);
 app.use('/history', history);
-
+app.use('/ancient_history', ancient_history);
 
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 //                          SERVER                            //
