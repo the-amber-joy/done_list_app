@@ -3,8 +3,6 @@ var router = express.Router();
 var path = require('path');
 var passport = require('passport');
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
-
 
 router.get('/', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/index.html'));

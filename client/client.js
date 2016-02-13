@@ -65,7 +65,7 @@ app.controller('MainController', ['$scope', '$location', 'userData', '$http', fu
 
 
     $scope.logoutUser = function(){
-        $http.get('/logout').success(function (response) {
+        $http.get('/logout').success(function () {
             $location.path('login');
         })};
 
@@ -108,8 +108,6 @@ app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData
             console.log(request.config.data.username + 'registered');
         });
     };
-
-
 }]);
 
 app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
@@ -120,15 +118,17 @@ app.controller('MenuController', ['$scope', '$http', function ($scope, $http) {
 }]);
 
 //entered taskList is posted back to the database, each index in the array will be a new row in 'tasks' table
-app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http) {
+app.controller('TaskEntryController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     $scope.submitTasks = function() {
-        var taskObject = {tasks: $scope.taskList}
-        $http.post('/taskEntry', taskObject).then(function () {
-            //console.log('var taskObject looks like this:', taskObject);
-            //window.location = ('/history');
-            $location.path('/history');
-        });
+        var taskObject = {tasks: $scope.taskList};
+        $http.post('/taskEntry', taskObject)
+    };
+
+    $scope.showHistory = function(){
+        $http.get('/history').success(function(){
+            $location.path('history');
+        })
     };
 }]);
 

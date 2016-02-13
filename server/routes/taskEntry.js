@@ -5,11 +5,7 @@ var pg = require('pg');
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
-///////////////////////////////////////////////////////////////////////////////////
-//                POSTGRESQL post test
-///////////////////////////////////////////////////////////////////////////////////
-
-router.post('/', function(request, response) {
+router.post('/history', function(request, response) {
     var tasks = request.body.tasks;
     var userId = request.user.id;
     pg.connect(connectionString, function(err, client, done) {
@@ -24,31 +20,5 @@ router.post('/', function(request, response) {
         }
     });
 });
-
-//router.post('/', function(request, response){
-//    console.log('Body', request.body);
-//});
-
-
-/////////USE THIS STUFF TO GENERATE THE CHECKLIST ITEMS AND THE HISTORY
-// SQL Query > Select Data
-//QUERY TO FIND ALL OF A USER'S TASKS FOR CHECKLIST:
-//var query = client.query("SELECT * FROM tasks JOIN users ON users.id = tasks.user_id WHERE users.username = $1", [response.data.username]);
-//
-//// Stream results back one row at a time
-//query.on('row', function(row) {
-//    results.push(row);
-//});
-//
-//// After all data is returned, close connection and return results
-//query.on('end', function() {
-//    done();
-//    return response.json(results);
-//});
-
-///////////////////////////////////////////////////////////////////////////////////
-//                       DB POST TEST END
-///////////////////////////////////////////////////////////////////////////////////
-
 
 module.exports = router;
