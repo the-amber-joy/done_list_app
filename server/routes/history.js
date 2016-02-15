@@ -14,13 +14,14 @@ router.get('/', function(request, response){
             console.log(error);
         }
 
-        var queryString = 'SELECT * FROM task_dates\
+        var queryString = "SELECT * FROM task_dates\
         JOIN tasks\
             ON tasks.id = task_dates.task_id\
         JOIN users\
             ON users.id = tasks.user_id\
         WHERE users.username = ($1) \
-        ORDER BY date ASC';
+        AND date > (NOW()::date - '6 days'::interval)\
+        ORDER BY date ASC";
 
         var query = client.query(queryString, [user]);
 
