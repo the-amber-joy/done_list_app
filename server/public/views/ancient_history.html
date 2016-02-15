@@ -1,15 +1,30 @@
-<h3>Select the week you'd like to view</h3>
-
-<form ng-submit="getOldDates()">
-    <label for="startDate">Week Starting:</label>
+<h3>Select the starting date for the week you'd like to view</h3>
+<br>
+<form>
+    <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" ng-model="startDate">
-    <input type="submit" value="Go" >
+    <!--<input type="submit" value="Go" >-->
+    <button ng-click="getOldDates()">Submit</button>
 </form>
 
-
-<ul ng-repeat="task in oldTasks">
-    <li>On {{task.date | date}} - {{task.task_name}}</li>
-</ul>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Accomplishment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="task in oldTasks">
+        <td>
+            {{task.date | date}}
+        </td>
+        <td>
+            {{task.task_name}}
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 
 <div class="navigation">

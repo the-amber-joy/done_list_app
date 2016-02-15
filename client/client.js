@@ -105,7 +105,7 @@ app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData
     };
 
     $scope.submitNewData = function(){
-        $http.post('/register', $scope.data).then(function(request, response){
+        $http.post('/register', $scope.data).then(function(request){
             console.log(request.config.data.username + 'registered');
         });
     };
@@ -148,8 +148,8 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
 app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
     $scope.oldTasks = [];
     $scope.getOldDates = function(){
-        $http.get('/ancient_history', [{startDate: $scope.startDate}]).then(function (request, response) {
-            $scope.oldTasks = response;
+        $http.post('/ancient_history', {startDate: $scope.startDate}).then(function (response) {
+            $scope.oldTasks = response.data;
             console.log('OldTasks', $scope.oldTasks);
             console.log('response:', $scope.oldTasks);
         });
@@ -158,7 +158,7 @@ app.controller('AncientHistoryController', ['$http', '$scope', function ($http, 
 }]);
 
 ///////////////////////////////////////////////////////////////////////////////////
-//                               SERVICE
+//                               SERVICES
 ///////////////////////////////////////////////////////////////////////////////////
 
 app.factory('userData', function(){
