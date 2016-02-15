@@ -63,10 +63,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 ///////////////////////////////////////////////////////////////////////////////////
 //                               CONTROLLERS
 ///////////////////////////////////////////////////////////////////////////////////
+
 app.controller('MainController', ['$scope', '$location', 'userData', '$http', function($scope, $location, userData, $http){
     $scope.notSignedIn = true;
     $scope.signedIn = false;
-
 
     $scope.logoutUser = function(){
         $http.get('/logout').success(function () {
@@ -82,7 +82,6 @@ app.controller('MainController', ['$scope', '$location', 'userData', '$http', fu
             $scope.signedIn = false;
         }
     };
-
 }]);
 
 app.controller('LoginController', ['$scope', '$http', '$location', 'userData', function ($scope, $http, $location, userData){
@@ -96,15 +95,13 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'userData', f
     };
 }]);
 
-
-
 app.controller('RegisterController', ['$scope', '$http',  '$location', 'userData', function ($scope, $http, $location, userData){
     $scope.data = {};
 
     $scope.thankyou = false;
 
     $scope.showThankyou = function(){
-      $scope.thankyou = true;
+        $scope.thankyou = true;
     };
 
     $scope.submitNewData = function(){
@@ -150,20 +147,18 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
 
 app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
     $scope.oldTasks = [];
-    $http.get('/ancient_history').then(function(response){
-        $scope.oldTasks = response.data;
-        console.log('Old Tasks', $scope.oldTasks);
-    });
+    $scope.getOldDates = function(){
+        $http.get('/ancient_history', [{startDate: $scope.startDate}]).then(function (request, response) {
+            $scope.oldTasks = response;
+            console.log('OldTasks', $scope.oldTasks);
+            console.log('response:', $scope.oldTasks);
+        });
+    };
 
-    //$scope.getOldDates = function($scope.startDate){
-    //
-    //}
 }]);
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////
-//                               FACTORIES
+//                               SERVICE
 ///////////////////////////////////////////////////////////////////////////////////
 
 app.factory('userData', function(){

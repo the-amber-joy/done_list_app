@@ -6,7 +6,7 @@ var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
 router.get('/', function(request, response){
-    var user = request.user;
+    var user = request.user.username;
     var tasks = [];
 
     pg.connect(connectionString, function(error, client){
@@ -22,9 +22,9 @@ router.get('/', function(request, response){
         WHERE users.username = ($1) \
         ORDER BY date ASC';
 
-        var query = client.query(queryString, [user.username]);
+        var query = client.query(queryString, [user]);
 
-        query.on('error', function(error){
+        query.on('error', function (error){
             console.log(error);
             response.sendStatus(500);
         });
