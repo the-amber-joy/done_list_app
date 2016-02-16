@@ -15,7 +15,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="task in oldTasks">
+    <tr ng-repeat="task in oldTasks track by $index">
         <td>
             {{task.date | date}}
         </td>
@@ -29,6 +29,7 @@
 
 <div class="navigation">
     <a href="/menu"><button>Main Menu</button></a><br><br>
+    <a href="/history"><button>Back to This Week</button></a><br><br>
     <a href="/task_entry"><button>Task Entry</button></a>
     <input type="submit" ng-click="logoutUser()" value="Log Out">
 </div>

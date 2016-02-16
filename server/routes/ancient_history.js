@@ -27,7 +27,8 @@ router.post('/', function(request, response) {
         ON users.id = tasks.user_id\
     WHERE users.username = ($1)\
     AND date\
-        BETWEEN ($2) AND (($2)::date + '7 days'::interval)";
+        BETWEEN ($2) AND (($2)::date + '7 days'::interval) \
+    ORDER BY date ASC";
 
 
         //This query returns tasks between the two selected dates

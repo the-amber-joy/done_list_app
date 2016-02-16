@@ -1,10 +1,29 @@
 <h3>Viewing accomplishments from the last 7 days</h3>
 <h3><a href="/ancient_history" id="linky">Click Here to select another range.</a></h3>
-<br>
-<div class="well" ng-repeat="task in tasks">
-    <p class="prettydate">{{task.date | date}}</p>
-    <p>{{task.task_name}}</p>
-</div>
+<!--<br>-->
+<!--<div class="well" ng-repeat="task in tasks">-->
+    <!--<p class="prettydate">{{task.date | date}}</p>-->
+    <!--<p>{{task.task_name}}</p>-->
+<!--</div>-->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Accomplishment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="task in tasks track by $index">
+        <td>
+            {{task.date | date}}
+        </td>
+        <td>
+            {{task.task_name}}
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 
 
