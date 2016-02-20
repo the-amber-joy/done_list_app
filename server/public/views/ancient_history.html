@@ -1,9 +1,9 @@
-<h3>Select the starting date for the week you'd like to view</h3>
+<h3>Select the range of dates you'd like to view</h3>
 <br>
 <form>
     <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" ng-model="startDate">
-    <!--<input type="submit" value="Go" >-->
+    <input type="date" id="endDate" ng-model="endDate">
     <button ng-click="getOldDates()">Submit</button>
 </form>
 

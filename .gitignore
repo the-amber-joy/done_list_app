@@ -2,3 +2,5 @@
 node_modules
 .sass-cache
 client/sass/
+npm-debug.log
+herokuDB.json
