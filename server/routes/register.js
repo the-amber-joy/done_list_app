@@ -4,9 +4,7 @@ var passport = require('passport');
 var pg = require('pg');
 var path = require('path');
 
-//var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
-//var connectionString = process.env.DATABASE_URL || require('../herokuDB.json').data;
-var connectionString = require('../herokuDB.json').data;
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
 router.post('/', function(request, response){
     var user = request.body;

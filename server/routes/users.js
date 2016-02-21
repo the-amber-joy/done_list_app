@@ -4,8 +4,7 @@ var pg = require('pg');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
-//var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
-var connectionString = require('../herokuDB.json').data;
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
 passport.use('local', new localStrategy({
     passReqToCallback: true,
