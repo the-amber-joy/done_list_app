@@ -20,6 +20,10 @@ router.post('/', function(request, response) {
             client.query("INSERT INTO task_dates (date, task_id) VALUES ('today', (SELECT id FROM tasks ORDER BY id DESC LIMIT 1))");
         }
     });
+
+    client.on('end', function () {
+        client.end();
+    });
 });
 
 module.exports = router;
