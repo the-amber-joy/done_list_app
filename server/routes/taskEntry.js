@@ -18,6 +18,9 @@ router.post('/', function(request, response) {
             client.query("INSERT INTO tasks (task_name, user_id) VALUES ($1, $2)", [tasks[i], userId]);
             client.query("INSERT INTO task_dates (date, task_id) VALUES ('today', (SELECT id FROM tasks ORDER BY id DESC LIMIT 1))");
         }
+        client.on('end', function () {
+            client.end();
+        })
     });
 });
 
