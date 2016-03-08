@@ -123,7 +123,7 @@ app.controller('TaskEntryController', ['$scope', '$http', '$location', function 
 
     $scope.submitTasks = function() {
         var taskObject = {tasks: $scope.taskList};
-        $http.post('/taskEntry', taskObject)
+        $http.post('/taskEntry', taskObject);
     };
 
     $scope.showHistory = function(){
@@ -148,7 +148,7 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
 app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
     $scope.oldTasks = [];
     $scope.getOldDates = function(){
-        $http.post('/ancient_history', {startDate: $scope.startDate}).then(function (response) {
+        $http.post('/ancient_history', {startDate: $scope.startDate, endDate: $scope.endDate}).then(function (response) {
             $scope.oldTasks = response.data;
             //console.log('OldTasks', $scope.oldTasks);
             //console.log('response:', $scope.oldTasks);

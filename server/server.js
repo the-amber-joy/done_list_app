@@ -26,12 +26,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
 app.use(session({
+    store: new (require('connect-pg-simple')(session))(),
     secret: 'secret',
     key: 'user',
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 60 * 60 * 1000,
+        maxAge: 30 * 60 * 1000,
         secure: false
     }
 }));
