@@ -4,13 +4,13 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             build: {
-                src: 'client/client.js',
+                src: ['client/client.js', 'client/*.js'],
                 dest: 'server/public/assets/scripts/client.min.js'
             }
         },
         watch: {
             scripts: {
-                files: ['client/client.js'],
+                files: ['client/client.js', 'client/*.js'],
                 tasks: ['uglify'],
                 options: {
                     spawn: false
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
             main: {
                 expand: true,
                 cwd: "node_modules/",
-                src: [ //CHANGE THESE BASED ON WHAT IS BEING USED
+                src: [
                     "angular/angular.min.js",
                     "angular/angular.min.js.map",
                     "angular/angular-csp.css",
@@ -42,7 +42,6 @@ module.exports = function(grunt) {
         jshint: {
             files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
             options: {
-                // options here to override JSHint defaults
                 globals: {
                     jQuery: true,
                     console: true,

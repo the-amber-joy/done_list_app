@@ -13,12 +13,14 @@ router.post('/', function(request, response) {
     };
     var oldTasks = [];
 
+    console.log('user requesting:', queryOptions.user);
+
     pg.connect(connectionString, function (error, client) {
         if (error) {
             console.log(error);
         }
 
-        //This query returns tasks from the week starting on the specified date
+        //This query returns tasks from the week starting on the specified date (might use this in the future, in conjunction with restricting user date selection to sundays only)
     //    var selectedWeek = "SELECT * FROM task_dates\ \
     //JOIN tasks\
     //    ON tasks.id = task_dates.task_id\
@@ -31,14 +33,15 @@ router.post('/', function(request, response) {
 
 
         //This query returns tasks between the two selected dates
-        var selectedWeek = "SELECT * FROM task_dates\ \
+        var selectedWeek = "SELECT * FROM task_dates\
     JOIN tasks\
         ON tasks.id = task_dates.task_id\
     JOIN users\
         ON users.id = tasks.user_id\
     WHERE users.username = ($1)\
     AND date\
-        BETWEEN ($2) AND ($3)";
+        BETWEEN ($2) AND ($3)\
+        ORDER BY date ASC";
 
         var query = client.query(selectedWeek, [queryOptions.user, queryOptions.startDate, queryOptions.endDate]);
 
@@ -54,6 +57,7 @@ router.post('/', function(request, response) {
 
         query.on('end', function () {
             client.end();
+            console.log('old tasks', oldTasks);
             return response.json(oldTasks);
         });
     });
