@@ -3,7 +3,6 @@ var router = express.Router();
 var passport = require('passport');
 var pg = require('pg');
 
-//var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 var connectionString = process.env.DATABASE_URL || require('../herokuDB.json').data;
 
 router.post('/', function(request, response) {
@@ -19,6 +18,9 @@ router.post('/', function(request, response) {
             client.query("INSERT INTO tasks (task_name, user_id) VALUES ($1, $2)", [tasks[i], userId]);
             client.query("INSERT INTO task_dates (date, task_id) VALUES ('today', (SELECT id FROM tasks ORDER BY id DESC LIMIT 1))");
         }
+        client.on('end', function () {
+            client.end();
+        })
     });
 
     client.on('end', function () {
