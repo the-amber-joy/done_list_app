@@ -20,11 +20,13 @@
   "dependencies": {
     "angular": "^1.4.9",
     "angular-route": "^1.4.9",
+    "animate.css-js": "^0.0.8",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "jquery": "*",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
