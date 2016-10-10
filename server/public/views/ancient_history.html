@@ -2,8 +2,9 @@
 <br>
 <form>
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" ng-model="startDate">
-    <input type="date" id="endDate" ng-model="endDate">
+    <input type="date" id="startDate" ng-model="startDate" placeholder="mm/dd/yyyy">
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" ng-model="endDate" placeholder="mm/dd/yyyy">
     <button ng-click="getOldDates()">Submit</button>
 </form>
 
