@@ -4,3 +4,4 @@ node_modules
 client/sass/
 npm-debug.log
 herokuDB.json
+launch.json
