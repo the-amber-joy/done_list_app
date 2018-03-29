@@ -31,7 +31,7 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60,
+        maxAge: 1000 * 60 * 15,
         secure: false
     }
 }));
@@ -56,5 +56,5 @@ app.use('/ancient_history', ancient_history);
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), function() {
-    console.log('Listening on port', app.get('port'));
+    console.log('Magic happens on port', app.get('port'));
 });

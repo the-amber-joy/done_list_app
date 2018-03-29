@@ -5,15 +5,14 @@ var pg = require('pg');
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
-router.post('/', function(request, response) {
-    var queryOptions = {
+
+router.post('/', function (request, response) {
+  var queryOptions = {
         user: request.user.username,
         startDate: request.body.startDate,
         endDate: request.body.endDate
-    };
-    var oldTasks = [];
-
-    console.log('user requesting:', queryOptions.user);
+      };
+  var oldTasks = [];
 
     pg.connect(connectionString, function (error, client) {
         if (error) {
@@ -43,24 +42,26 @@ router.post('/', function(request, response) {
         BETWEEN ($2) AND ($3)\
         ORDER BY date ASC";
 
-        var query = client.query(selectedWeek, [queryOptions.user, queryOptions.startDate, queryOptions.endDate]);
+      var query = client.query(selectedWeek, [queryOptions.user, queryOptions.startDate, queryOptions.endDate]);
 
-        query.on('error', function (error) {
-            console.log(error);
-            response.sendStatus(500);
-        });
+      query.on('error', function (error) {
+        console.log(error);
+        response.sendStatus(500);
+      });
 
-        query.on('row', function (row) {
-            oldTasks.push(row);
-        });
+      query.on('row', function (row) {
+        oldTasks.push(row);
+      });
 
+      query.on('end', function () {
+        client.end();
+        return response.json(oldTasks);
+      });
 
-        query.on('end', function () {
-            client.end();
-            console.log('old tasks', oldTasks);
-            return response.json(oldTasks);
-        });
     });
 });
 
 module.exports = router;
+
+
+// bootstrap for containers based on dates...

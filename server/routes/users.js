@@ -45,6 +45,10 @@ passport.deserializeUser(function(id, done){
             user = row;
             done(null, user);
         });
+
+        query.on('end', function () {
+            client.end();
+        });
     });
 });
 

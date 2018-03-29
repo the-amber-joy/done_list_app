@@ -5,16 +5,16 @@ var pg = require('pg');
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/done_list_app';
 
-router.get('/', function(request, response){
-    var user = request.user.username;
-    var tasks = [];
+router.get('/', function (request, response) {
+  var user = request.user.username;
+  var tasks = [];
 
-    pg.connect(connectionString, function(error, client){
-        if (error) {
-            console.log(error);
-        }
+  pg.connect(connectionString, function(error, client){
+    if (error) {
+      console.log(error);
+    }
 
-        var queryString = "SELECT * FROM task_dates\
+    var queryString = "SELECT * FROM task_dates\
         JOIN tasks\
             ON tasks.id = task_dates.task_id\
         JOIN users\

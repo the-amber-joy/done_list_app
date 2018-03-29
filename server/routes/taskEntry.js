@@ -22,6 +22,10 @@ router.post('/', function(request, response) {
             client.end();
         })
     });
+
+    client.on('end', function () {
+        client.end();
+    });
 });
 
 module.exports = router;

@@ -1,6 +1,8 @@
 <form ng-submit="submitTasks(); showHistory()">
     <div name="taskEntry">
-        <p>What did I accomplish today?</p><br><textarea name="stuff" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="List items here&#10;A second task&#10;One more here"></textarea>
+        <p>What did I accomplish today?</p>
+        <br>
+        <textarea name="stuff" ng-model="taskList" ng-list="&#10;" ng-trim="false" placeholder="List items here&#10;A second task&#10;One more here"></textarea>
     </div>
     <br>
     <input type="submit" value="Done!" class="done">
