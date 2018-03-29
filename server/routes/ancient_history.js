@@ -51,6 +51,7 @@ router.post('/', function (request, response) {
 
       query.on('row', function (row) {
         oldTasks.push(row);
+        console.log("getting old tasks");
       });
 
       query.on('end', function () {
