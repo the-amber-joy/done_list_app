@@ -84,9 +84,8 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
 
 app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
     $scope.oldTasks = [];
-    console.log("Date Range Selected:", $scope.startDate, " to ", $scope.endDate);
     $scope.getOldDates = function(){
-        console.log("Getting tasks");
+        console.log("Date Range Selected:", $scope.startDate, " to ", $scope.endDate);
         $http.post('/ancient_history', {startDate: $scope.startDate, endDate: $scope.endDate}).then(function (response) {
             $scope.oldTasks = response.data;
         });
