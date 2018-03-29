@@ -50,9 +50,13 @@ router.post('/', function (request, response) {
       });
 
       query.on('row', function (row) {
-        oldTasks.push(row);
-        console.log("getting old tasks");
-        console.log(row.task_id);
+        if (row) {
+            oldTasks.push(row);
+        }
+        else {
+            oldTasks.push({task_name: 'no tasks for this range'});
+            console.log("No tasks found");
+        }
       });
 
       query.on('end', function () {

@@ -83,11 +83,19 @@ app.controller('HistoryController', ['$http', '$scope', function ($http, $scope)
 }]);
 
 app.controller('AncientHistoryController', ['$http', '$scope', function ($http, $scope) {
-    $scope.oldTasks = [];
+    $scope.noTasks = false;
     $scope.getOldDates = function(){
-        console.log("Date Range Selected:", $scope.startDate, " to ", $scope.endDate);
+        $scope.oldTasks = [];
         $http.post('/ancient_history', {startDate: $scope.startDate, endDate: $scope.endDate}).then(function (response) {
             $scope.oldTasks = response.data;
+            for (i = 0; i < $scope.oldTasks.length; i++) {
+                console.log("oldTasks", $scope.oldTasks[i].task_id, $scope.oldTasks[i].task_name);
+            }
+            if ($scope.oldTasks.length < 1) {
+                $scope.noTasks = true;
+                console.log("No tasks?", $scope.noTasks);
+                $scope.oldTasks = "No tasks found for this range";
+            }
         });
     };
 }]);
