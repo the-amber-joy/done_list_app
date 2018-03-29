@@ -6,3 +6,4 @@ npm-debug.log
 herokuDB.json
 .vscode/
 launch.json
+package-lock.json
