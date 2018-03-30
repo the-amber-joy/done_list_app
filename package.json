@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "process.env.START",
-    "debug": "grunt watch | nodemon server/server.js"
+    "start": "grunt watch | nodemon server/server.js ",
+    "start-production": "process.env.START"
   },
   "repository": {
     "type": "git",
