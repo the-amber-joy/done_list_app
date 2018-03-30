@@ -22,7 +22,6 @@
     "angular": "^1.4.9",
     "angular-route": "^1.4.9",
     "animate.css-js": "^0.0.8",
-    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
