@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
-    "debug": "grunt watch | nodemon server/server.js"
+    "start": "grunt watch | nodemon server/server.js ",
+    "start-production": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
     "angular": "^1.4.9",
     "angular-route": "^1.4.9",
     "animate.css-js": "^0.0.8",
-    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
